@@ -68,10 +68,7 @@
     <p><strong>XP Atual:</strong> <span id="xpAtual">0</span>/100</p><h2>Missão Diária</h2>
 <form id="formMissao">
   <p><strong>Flexões:</strong> <span id="contadorFlexao">0</span> / 100</p>
-  <label>Flexões (0–100): 
-    <input type="number" id="flexoes" min="0" max="100" readonly />
-  </label>
-  <button type="button" onclick="incrementarFlexao()">Fazer Flexão</button>
+  <button type="button" id="btnFlexao" onclick="incrementarFlexao()">Adicionar +10 Flexões</button>
 
   <label>Agachamentos (0-100): <input type="number" id="agachamentos" min="0" max="100" /></label>
   <label>Abdominais (0-100): <input type="number" id="abdominais" min="0" max="100" /></label>
@@ -87,9 +84,13 @@
 
     function incrementarFlexao() {
       if (flexoes < 100) {
-        flexoes++;
+        flexoes += 10;
+        if (flexoes > 100) flexoes = 100;
         document.getElementById("contadorFlexao").innerText = flexoes;
-        document.getElementById("flexoes").value = flexoes;
+        if (flexoes === 100) {
+          document.getElementById("btnFlexao").disabled = true;
+          document.getElementById("btnFlexao").innerText = "Missão completa!";
+        }
       }
     }
 
